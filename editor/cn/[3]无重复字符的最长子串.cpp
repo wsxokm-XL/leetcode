@@ -49,7 +49,26 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
+        map<char,int> mp;
+        int s_length=s.length(),length=0,tmp_length=0,start=0;
+        if(s_length<=1)
+            return s_length;
 
+        for(int i=0;i<s_length;i++){
+            if(mp.find(s[i])==mp.end()||mp[s[i]]<start){
+                tmp_length++;
+            }
+            else {
+                if(tmp_length>length) length=tmp_length;
+                start=mp[s[i]]+1;
+                tmp_length=i-mp[s[i]];
+            }
+            mp[s[i]]=i;
+        }
+
+        if(tmp_length>length) length=tmp_length;
+
+        return length;
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)
