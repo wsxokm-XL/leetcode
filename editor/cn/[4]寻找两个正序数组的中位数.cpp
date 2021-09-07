@@ -62,7 +62,36 @@
 class Solution {
 public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int s1=nums1.size(),s2=nums2.size(),i=0,j=0,s3=0;
+        vector<int> nums3(s1+s2);
+        while(i<s1&&j<s2){
+            if(nums1[i]<=nums2[j]) {
+                nums3[s3] = nums1[i];
+                i++;
+            }
+            else {
+                nums3[s3] = nums2[j];
+                j++;
+            }
+            s3++;
+        }
 
+        while(i<s1){
+            nums3[s3] = nums1[i];
+            i++;
+            s3++;
+        }
+
+        while(j<s2){
+            nums3[s3] = nums2[j];
+            j++;
+            s3++;
+        }
+
+        if (s3%2==1)
+            return nums3[s3/2];
+        else
+            return (nums3[s3/2]+nums3[s3/2-1])/2.0;
     }
 };
 //leetcode submit region end(Prohibit modification and deletion)
